@@ -26,12 +26,12 @@ const DropDown = ({ setDropMenu, setCurrentFont }: Props) => {
   };
 
   return (
-    <div className="absolute top-[2.375rem] right-0 min-h-[9.5rem] w-36 origin-top animate-dropdown cursor-default select-none rounded-2xl border-[1px] bg-white shadow-lg transition-all duration-300 dark:border-custom-1F1F1F dark:bg-custom-1F1F1F xs:w-[11.5rem]">
-      <ul className="m-6 inline-flex flex-col items-start gap-4 text-base font-bold text-custom-2D2D2D dark:text-white md:text-lg md:leading-[1.5rem]">
+    <div className="absolute top-[2.375rem] right-0 z-50 min-h-[9.5rem] w-36 origin-top animate-dropdown cursor-default select-none rounded-2xl border-[1px] bg-custom-FAFAFA shadow-lg dark:border-custom-1F1F1F dark:bg-custom-1F1F1F xs:w-[11.5rem]">
+      <ul className="m-6 inline-flex flex-col items-start gap-4 text-base font-bold text-custom-2D2D2D dark:text-[#FAFAFA] md:text-lg md:leading-[1.5rem]">
         {fonts.map((font, index) => {
           return (
             <li
-              className={`cursor-pointer transition-colors duration-300 hover:text-custom-a445ed ${font.fontClass}`}
+              className={`cursor-pointer hover:text-custom-A445ED hover:transition-colors hover:duration-300 ${font.fontClass}`}
               key={index}
               onClick={() => {
                 fontHandler(font);

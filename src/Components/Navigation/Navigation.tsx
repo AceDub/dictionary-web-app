@@ -47,7 +47,7 @@ const Navigation = ({ displayCurrentFont, setCurrentFont }: Props) => {
               onClick={toggleFontMenu}
             >
               <button
-                className={`pr-4 text-sm font-bold transition-all duration-300 dark:text-white md:text-lg ${displayCurrentFont.fontClass}`}
+                className={`pr-4 text-sm font-bold dark:text-custom-FAFAFA md:text-lg ${displayCurrentFont.fontClass}`}
               >
                 {displayCurrentFont.title}
               </button>
@@ -63,10 +63,10 @@ const Navigation = ({ displayCurrentFont, setCurrentFont }: Props) => {
               />
             )}
           </div>
-          <span className="h-8 w-[1px] bg-custom-e9e9e9"></span>
+          <span className="h-8 w-[1px] bg-custom-E9E9E9"></span>
           <div className="flex items-center gap-3 md:gap-5">
             <ThemeToggle />
-            <MoonIcon className="stroke-custom-838383 dark:stroke-custom-a445ed" />
+            <MoonIcon className="stroke-custom-838383 dark:stroke-custom-A445ED" />
           </div>
         </div>
       </div>

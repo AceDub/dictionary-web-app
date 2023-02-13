@@ -4,7 +4,7 @@ const ThemeToggle = () => {
   return (
     <label
       htmlFor="themeToggle"
-      className="relative inline-block h-5 w-10 cursor-pointer rounded-[10px] bg-custom-838383 dark:bg-custom-a445ed"
+      className="relative inline-block h-5 w-10 cursor-pointer rounded-[10px] bg-custom-838383 dark:bg-custom-A445ED"
     >
       <input
         type="checkbox"
@@ -15,7 +15,7 @@ const ThemeToggle = () => {
         id="themeToggle"
         onClick={toggleTheme}
       />
-      <div className="absolute top-[3px] left-[3px] h-[14px] w-[14px] rounded-full bg-white transition-all duration-300 dark:left-[23px]"></div>
+      <div className="absolute top-[3px] left-[3px] h-[14px] w-[14px] rounded-full bg-custom-FAFAFA transition-all duration-300 dark:left-[23px]"></div>
     </label>
   );
 };

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import Navigation from './components/Navigation/Navigation';
+import Navigation from './Components/Navigation/Navigation';
 import { initializeTheme } from './Util/setTheme';
 import { setLocalStorageFont } from './Util/setFont';
+import SearchBar from './Components/SearchBar';
 
 interface Font {
   title: string;
@@ -27,13 +28,15 @@ function App() {
 
   return (
     <div
-      className={`h-screen px-6 transition-all duration-300 ease-in-out dark:bg-custom-050505 ${currentFont.fontClass}`}
+      className={`h-screen px-6 text-custom-2D2D2D transition-all duration-300 ease-in-out dark:bg-custom-050505 dark:text-custom-FAFAFA   ${currentFont.fontClass}`}
     >
       <Navigation
         displayCurrentFont={currentFont}
         setCurrentFont={setCurrentFont}
       />
-      <main></main>
+      <main>
+        <SearchBar />
+      </main>
     </div>
   );
 }
