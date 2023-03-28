@@ -6,13 +6,13 @@ import DropDown from './DropDown';
 import ThemeToggle from '../../Util/Buttons/ThemeToggle';
 
 interface Props {
-  displayCurrentFont: { title: string; fontClass: string };
+  currentFont: { title: string; fontClass: string };
   setCurrentFont: React.Dispatch<
     React.SetStateAction<{ title: string; fontClass: string }>
   >;
 }
 
-const Navigation = ({ displayCurrentFont, setCurrentFont }: Props) => {
+const Navigation = ({ currentFont, setCurrentFont }: Props) => {
   const [dropMenu, setDropMenu] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +38,7 @@ const Navigation = ({ displayCurrentFont, setCurrentFont }: Props) => {
 
   return (
     <nav className="mx-auto max-w-3xl font-inter">
-      <div className="flex justify-between py-6">
+      <div className="flex justify-between py-6 md:py-14">
         <Logo className="max-h-8 md:max-h-9" />
         <div className="flex items-center gap-4 md:gap-6">
           <div className="relative" ref={dropDownRef}>
@@ -47,13 +47,13 @@ const Navigation = ({ displayCurrentFont, setCurrentFont }: Props) => {
               onClick={toggleFontMenu}
             >
               <button
-                className={`pr-4 text-sm font-bold dark:text-custom-FAFAFA md:text-lg ${displayCurrentFont.fontClass}`}
+                className={`pr-4 text-sm font-bold text-custom-2D2D2D duration-300 dark:text-custom-FAFAFA md:text-lg ${currentFont.fontClass}`}
               >
-                {displayCurrentFont.title}
+                {currentFont.title}
               </button>
               <ArrowIcon
                 className={`transition-all duration-300
-                  ${dropMenu ? '' : '-scale-y-100'}`}
+                  ${dropMenu ? '-scale-y-100' : ''}`}
               />
             </div>
             {dropMenu && (
