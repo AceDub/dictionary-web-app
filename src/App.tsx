@@ -6,6 +6,8 @@ import SearchBar from './Components/SearchBar';
 import Definition from './Components/Definition';
 import { fonts } from './Data/fonts';
 import { useFetch } from './Util/useFetch';
+import Error from './Components/Error';
+import Loader from './Util/Loader';
 
 interface Font {
   title: string;
@@ -15,7 +17,7 @@ interface Font {
 function App() {
   const [currentFont, setCurrentFont] = useState<Font>(fonts[0]);
   const [word, setWord] = useState<string>('');
-  const data = useFetch(word);
+  const { data, error, loading } = useFetch(word);
 
   useEffect(() => {
     initializeTheme();
@@ -28,7 +30,9 @@ function App() {
   }, []);
 
   const searchHandler = (searchWord: string) => {
-    setWord(searchWord);
+    if (searchWord.trim()) {
+      setWord(searchWord);
+    }
   };
 
   return (
@@ -38,7 +42,11 @@ function App() {
       <Navigation currentFont={currentFont} setCurrentFont={setCurrentFont} />
       <main>
         <SearchBar onSearch={searchHandler} />
-        <Definition data={data} word={word} setWord={setWord} />
+        {loading && <Loader />}
+        {data && !error && (
+          <Definition data={data} error={error} setWord={setWord} />
+        )}
+        {error && <Error error={error} />}
       </main>
     </div>
   );
