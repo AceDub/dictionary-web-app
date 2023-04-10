@@ -6,8 +6,6 @@ import SearchBar from './Components/SearchBar';
 import Definition from './Components/Definition';
 import { fonts } from './Data/fonts';
 import { useFetch } from './Util/useFetch';
-import Error from './Components/Error';
-import Loader from './Util/Loader';
 
 interface Font {
   title: string;
@@ -42,11 +40,12 @@ function App() {
       <Navigation currentFont={currentFont} setCurrentFont={setCurrentFont} />
       <main>
         <SearchBar onSearch={searchHandler} />
-        {loading && <Loader />}
-        {data && !error && (
-          <Definition data={data} error={error} setWord={setWord} />
-        )}
-        {error && <Error error={error} />}
+        <Definition
+          data={data}
+          setWord={setWord}
+          loading={loading}
+          error={error}
+        />
       </main>
     </div>
   );
