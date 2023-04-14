@@ -1,7 +1,8 @@
-import playButton from '../assets/images/icon-play.svg';
-import sourceImg from '../assets/images/icon-new-window.svg';
+import { ReactComponent as SourceIcon } from '../assets/images/icon-new-window.svg';
+import { ReactComponent as PlayButton } from '../assets/images/icon-play.svg';
 import Loader from '../Util/Loader';
 import Error from './Error';
+import { useEffect, useState } from 'react';
 
 interface Props {
   data:
@@ -14,7 +15,7 @@ interface Props {
           antonyms?: string[];
         }[];
         phonetic: string;
-        phonetics: { audio: string };
+        phonetics: { audio: string }[];
         sourceUrls: string;
       }[]
     | null;
@@ -27,7 +28,31 @@ interface Props {
   } | null;
 }
 
+interface SVGProps {
+  alt: string;
+}
+
 const Definition = ({ data, setWord, loading, error }: Props) => {
+  const [hasAudio, setHasAudio] = useState<boolean>(false);
+  const audioUrl = data?.[0].phonetics
+    .map((audio) => audio.audio)
+    .filter((audio) => audio !== '')
+    .slice(0, 1)
+    .join(', ');
+
+  useEffect(() => {
+    if (audioUrl) {
+      setHasAudio(true);
+    } else {
+      setHasAudio(false);
+    }
+  }, [data]);
+
+  const playAudio = () => {
+    const audio = new Audio(audioUrl);
+    audio.play();
+  };
+
   return (
     <section>
       {loading && <Loader />}
@@ -43,13 +68,17 @@ const Definition = ({ data, setWord, loading, error }: Props) => {
                 {data[0].phonetic}
               </p>
             </div>
-            <button>
-              <img
-                src={playButton}
-                alt="Play button"
-                className="max-w-[3rem] md:max-w-full"
+            <button
+              onClick={() => {
+                playAudio();
+              }}
+              aria-label="Play audio pronunciation of word"
+            >
+              <PlayButton
+                className={`max-w-[3rem] cursor-pointer md:max-w-full ${
+                  hasAudio ? '' : 'hidden'
+                }`}
               />
-              <p className="text-sm">{data[0].phonetics.audio}</p>
             </button>
           </div>
           {data.map((word, index) => (
@@ -137,7 +166,8 @@ const Definition = ({ data, setWord, loading, error }: Props) => {
               className="flex gap-2 break-words underline underline-offset-2"
             >
               {data[0].sourceUrls}
-              <img src={sourceImg} alt="Link to source" />
+              {/* <img src={sourceImg} alt="Link to source" /> */}
+              <SourceIcon aria-label="Link to source" />
             </a>
           </div>
         </div>
