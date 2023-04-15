@@ -6,6 +6,7 @@ import SearchBar from './Components/SearchBar';
 import Definition from './Components/Definition';
 import { fonts } from './Data/fonts';
 import { useFetch } from './Util/useFetch';
+import { BrowserRouter } from 'react-router-dom';
 
 interface Font {
   title: string;
@@ -27,27 +28,24 @@ function App() {
     }
   }, []);
 
-  const searchHandler = (searchWord: string) => {
+  const handleSearch = (searchWord: string) => {
     if (searchWord.trim()) {
       setWord(searchWord);
     }
   };
 
   return (
-    <div
-      className={`min-h-screen px-6 text-custom-2D2D2D transition-all duration-300 dark:bg-custom-050505 dark:text-custom-FAFAFA ${currentFont.fontClass}`}
-    >
-      <Navigation currentFont={currentFont} setCurrentFont={setCurrentFont} />
-      <main>
-        <SearchBar onSearch={searchHandler} />
-        <Definition
-          data={data}
-          setWord={setWord}
-          loading={loading}
-          error={error}
-        />
-      </main>
-    </div>
+    <BrowserRouter>
+      <div
+        className={`min-h-screen px-6 text-custom-2D2D2D transition-all duration-300 dark:bg-custom-050505 dark:text-custom-FAFAFA ${currentFont.fontClass}`}
+      >
+        <Navigation currentFont={currentFont} setCurrentFont={setCurrentFont} />
+        <main>
+          <SearchBar handleSearch={handleSearch} />
+          <Definition data={data} loading={loading} error={error} />
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
 

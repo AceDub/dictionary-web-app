@@ -1,28 +1,38 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ReactComponent as SearchIcon } from '../assets/images/icon-search.svg';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
-  onSearch: (searchWord: string) => void;
+  handleSearch: (searchWord: string) => void;
 }
 
-const SearchBar = ({ onSearch }: Props) => {
-  const [word, setWord] = useState<string>('');
+const SearchBar = ({ handleSearch }: Props) => {
+  const [inputValue, setInputValue] = useState<string>('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  useEffect(() => {
+    if (searchParams.get('word')) {
+      setInputValue(searchParams.get('word') as string);
+      handleSearch(searchParams.get('word') as string);
+    }
+  }, [searchParams]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    onSearch(word.trim());
-    setWord((prevState) => prevState.trim());
+    handleSearch(inputValue.trim());
+    setInputValue((prevState) => prevState.trim());
+    setSearchParams({ word: inputValue.trim() });
   };
 
   return (
     <section className="relative mx-auto max-w-3xl">
-      <form onSubmit={submitHandler}>
+      <form onSubmit={handleSubmit}>
         <input
           placeholder="Search for any word..."
           type="text"
-          value={word}
+          value={inputValue}
           onChange={(event) => {
-            setWord(event.target.value);
+            setInputValue(event.target.value);
           }}
           className="h-12 w-full rounded-2xl bg-custom-F4F4F4 pl-6 pr-12 font-bold outline-none transition-[background-color] duration-300 dark:bg-custom-1F1F1F md:h-16 md:text-xl"
         />

@@ -3,6 +3,7 @@ import { ReactComponent as PlayButton } from '../assets/images/icon-play.svg';
 import Loader from '../Util/Loader';
 import Error from './Error';
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 
 interface Props {
   data:
@@ -19,7 +20,6 @@ interface Props {
         sourceUrls: string;
       }[]
     | null;
-  setWord: (word: string) => void;
   loading: boolean;
   error: {
     title: string;
@@ -28,12 +28,9 @@ interface Props {
   } | null;
 }
 
-interface SVGProps {
-  alt: string;
-}
-
-const Definition = ({ data, setWord, loading, error }: Props) => {
+const Definition = ({ data, loading, error }: Props) => {
   const [hasAudio, setHasAudio] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
   const audioUrl = data?.[0].phonetics
     .map((audio) => audio.audio)
     .filter((audio) => audio !== '')
@@ -68,6 +65,7 @@ const Definition = ({ data, setWord, loading, error }: Props) => {
                 {data[0].phonetic}
               </p>
             </div>
+            {/* Audio button */}
             <button
               onClick={() => {
                 playAudio();
@@ -124,7 +122,7 @@ const Definition = ({ data, setWord, loading, error }: Props) => {
                               key={index}
                               className="ml-3 inline-block cursor-pointer font-bold text-custom-A445ED [&:not(:last-child)]:after:content-[',']"
                               onClick={() => {
-                                setWord(synonym);
+                                setSearchParams({ word: synonym });
                               }}
                             >
                               {synonym}
@@ -139,12 +137,15 @@ const Definition = ({ data, setWord, loading, error }: Props) => {
                         <p className="mr-6 text-custom-838383">Antonyms</p>
                         <div>
                           {meaning.antonyms.map((antonym, index) => (
-                            <p
+                            <a
                               key={index}
-                              className="ml-3 inline-block font-bold text-custom-A445ED [&:not(:last-child)]:after:content-[',']"
+                              className="ml-3 inline-block cursor-pointer font-bold text-custom-A445ED [&:not(:last-child)]:after:content-[',']"
+                              onClick={() => {
+                                setSearchParams({ word: antonym });
+                              }}
                             >
                               {antonym}
-                            </p>
+                            </a>
                           ))}
                         </div>
                       </div>
@@ -166,7 +167,6 @@ const Definition = ({ data, setWord, loading, error }: Props) => {
               className="flex gap-2 break-words underline underline-offset-2"
             >
               {data[0].sourceUrls}
-              {/* <img src={sourceImg} alt="Link to source" /> */}
               <SourceIcon aria-label="Link to source" />
             </a>
           </div>
