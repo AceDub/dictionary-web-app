@@ -73,7 +73,7 @@ const Definition = ({ data, loading, error }: Props) => {
               aria-label="Play audio pronunciation of word"
             >
               <PlayButton
-                className={`max-w-[3rem] cursor-pointer md:max-w-full ${
+                className={`max-w-[3rem] cursor-pointer opacity-75 transition-opacity duration-300 hover:opacity-100 md:max-w-full ${
                   hasAudio ? '' : 'hidden'
                 }`}
               />
