@@ -116,38 +116,38 @@ const Definition = ({ data, loading, error }: Props) => {
                     {meaning.synonyms && meaning.synonyms.length > 0 && (
                       <div className="mb-8 flex items-center md:mb-10 md:text-xl">
                         <p className="mr-6 text-custom-838383 ">Synonyms</p>
-                        <div>
+                        <ul>
                           {meaning.synonyms.map((synonym, index) => (
-                            <a
+                            <li
                               key={index}
-                              className="ml-3 inline-block cursor-pointer font-bold text-custom-A445ED [&:not(:last-child)]:after:content-[',']"
+                              className="ml-3 inline-block cursor-pointer font-bold text-custom-A445ED hover:underline [&:not(:last-child)]:after:content-[',']"
                               onClick={() => {
                                 setSearchParams({ word: synonym });
                               }}
                             >
                               {synonym}
-                            </a>
+                            </li>
                           ))}
-                        </div>
+                        </ul>
                       </div>
                     )}
                     {/* Antonyms */}
                     {meaning.antonyms && meaning.antonyms.length > 0 && (
                       <div className="mb-8 flex items-center md:mb-10 md:text-xl">
                         <p className="mr-6 text-custom-838383">Antonyms</p>
-                        <div>
+                        <ul>
                           {meaning.antonyms.map((antonym, index) => (
-                            <a
+                            <li
                               key={index}
-                              className="ml-3 inline-block cursor-pointer font-bold text-custom-A445ED [&:not(:last-child)]:after:content-[',']"
+                              className="ml-3 inline-block cursor-pointer font-bold text-custom-A445ED hover:underline [&:not(:last-child)]:after:content-[',']"
                               onClick={() => {
                                 setSearchParams({ word: antonym });
                               }}
                             >
                               {antonym}
-                            </a>
+                            </li>
                           ))}
-                        </div>
+                        </ul>
                       </div>
                     )}
                   </div>
