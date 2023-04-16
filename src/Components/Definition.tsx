@@ -164,7 +164,7 @@ const Definition = ({ data, loading, error }: Props) => {
               target={'_blank'}
               rel="noopener noreferrer"
               href={data[0].sourceUrls}
-              className="flex gap-2 break-words underline underline-offset-2"
+              className="flex items-center gap-2 break-words underline underline-offset-2"
             >
               {data[0].sourceUrls}
               <SourceIcon aria-label="Link to source" />
