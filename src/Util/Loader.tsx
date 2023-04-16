@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as LoaderSvg } from '../assets/images/Loader.svg';
+import { ReactComponent as LoaderSvg } from '../assets/images/loader.svg';
 
 const Loader = () => {
   return (
